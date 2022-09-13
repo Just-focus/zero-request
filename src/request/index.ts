@@ -44,9 +44,9 @@ instance.interceptors.response.use(
 );
 
 export class CodeNotZeroError extends Error {
-  code: number;
+  code: string;
 
-  constructor(code: number, message: string) {
+  constructor(code: string, message: string) {
     super(message);
     this.code = code;
   }
@@ -59,7 +59,7 @@ export interface ResultFormat<T = any> {
 }
 
 export interface BackendResultFormat<T = any> {
-  code: number;
+  code: string;
   data: T;
   message: string;
 }
@@ -121,7 +121,7 @@ const makeRequest: MakeRequest = <T>(config: RequestConfig) => {
         BackendResultFormat<T>
       >(mergedConfig);
       const res = response.data;
-      if (res.code !== 0) {
+      if (res.code !== 'SUCCESS') {
         const error = new CodeNotZeroError(res.code, res.message);
         return { err: error, data: null, response };
       }

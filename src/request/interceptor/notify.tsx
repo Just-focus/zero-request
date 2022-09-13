@@ -8,8 +8,8 @@ const notify = {
       const { desc, notifyWhenFailure, notifyWhenSuccess, method } =
         response.config as RequestConfig;
       if (desc) {
-        // 对code为0的响应做成功反馈
-        if (code === 0) {
+        // 对code为SUCCESS的响应做成功反馈
+        if (code === 'SUCCESS') {
           if (notifyWhenSuccess !== false) {
             if (
               ['delete', 'put', 'post'].includes(method?.toLowerCase() || '') ||
