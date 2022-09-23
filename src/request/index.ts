@@ -61,7 +61,7 @@ export interface ResultFormat<T = any> {
 export interface BackendResultFormat<T = any> {
   code: string;
   data: T;
-  message: string;
+  errorMsg: string;
 }
 
 export interface RequestConfig extends AxiosRequestConfig {
@@ -122,7 +122,7 @@ const makeRequest: MakeRequest = <T>(config: RequestConfig) => {
       >(mergedConfig);
       const res = response.data;
       if (res.code !== 'SUCCESS') {
-        const error = new CodeNotZeroError(res.code, res.message);
+        const error = new CodeNotZeroError(res.code, res.errorMsg);
         return { err: error, data: null, response };
       }
       return { err: null, data: res.data, response };
